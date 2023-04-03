@@ -1,0 +1,55 @@
+%!TEX root = ../main/main.tex
+
+\section*{Instrucciones}
+
+Cualquier duda sobre la tarea se deberá hacer en los \emph{issues} del \href{https://github.com/IIC3253/2023}{repositorio del curso}. Si quiere usar alguna librería en sus soluciones debe preguntar primero si dicha librería está permitida. El foro es el canal de comunicación oficial para todas las tareas.
+
+\paragraph{Configuración inicial.} 
+Para esta tarea utilizaremos \textit{github classroom}. 
+Para acceder a su repositorio privado debe ingresar al siguiente \href{https://classroom.github.com/a/4ie2AjuF}{link}, seleccionar su nombre y aceptar la invitación.
+El repositorio se creará automaticamente una vez que hagas esto y lo podrás encontrar junto a los \href{https://github.com/orgs/IIC3253/repositories}{repositorios del curso}.
+
+\bigskip
+
+También deberá responder \href{https://forms.gle/1KRanAJxcusURsUx8}{este formulario}, en el que se le pedirá una \textbf{llave simétrica} que será utilizada para encriptar sus notas y correcciones usando el esquema \href{https://en.wikipedia.org/wiki/Advanced_Encryption_Standard}{AES}.
+La llave debe tener como \textbf{máximo} un largo de 32 caracteres.
+En el repositorio del curso se publicará además el valor de hash de su llave utilizando \href{https://en.wikipedia.org/wiki/SHA-2}{SHA256}. 
+Si usted pierde dicha llave podrá recuperarla incurriendo en una penalización de dos décimas en el promedio de sus tareas. 
+Si otra persona descubre su llave antes de que se publiquen las notas de la segunda tarea, el promedio de tareas de dicha persona aumentará en cinco décimas, mientras que el suyo disminuirá en cinco décimas. 
+Recomendación: \textbf{Use un administrador de contraseñas}.
+
+
+\paragraph{Entrega.} Al entregar esta tarea, su repositorio se deberá ver exactamente de la siguiente forma:
+
+\bigskip
+
+\dirtree{%
+.1 \faGithub \ Repositorio.
+.3 \faFolderOpenO \ \texttt{Pregunta\_1}.
+.4 \faFileTextO \ \texttt{requirements.txt}.
+.4 \faFileCodeO \ \texttt{pregunta1.ipynb}.
+.4 \faFileO \ \texttt{key.bin}.
+.3 \faFolderOpenO \ \texttt{Pregunta\_2}.
+.4 \faFilePdfO \ \texttt{pregunta2.pdf}.
+.3 \faFolderOpenO \ \texttt{Pregunta\_3}.
+.4 \faFilePdfO \ \texttt{pregunta3.pdf}.
+.3 \faFolderOpenO \ \texttt{Pregunta\_4}.
+.4 \faFilePdfO \ \texttt{pregunta4.pdf}.
+.2 \faFileTextO \ \texttt{.gitignore}.
+.2 \faFileTextO \ \texttt{README.md}.
+.2 \faFolderO \ .git.
+}
+
+\bigskip
+
+Deberá considerar lo siguiente:
+
+\begin{itemize}
+
+  \item El archivo \texttt{requirements.txt} dentro de la carpeta de una pregunta deberá especificar todas las librerías que se necesitan instalar para ejecutar el código de su respuesta a dicha pregunta. Este archivo debe seguir la especificación de \href{https://pypi.org/project/pip/}{Pip}, es decir se debe poder ejecutar el comando \texttt{pip install -r requirements.txt} suponiendo una versión de \texttt{Pip} mayor o igual a 22.0 que apunte a la versión 3.10 de Python. Si su respuesta no requiere librerías adicionales, este archivo debe estar vacío (pero debe estar en su repositorio).
+
+  \item Se recomienda utilizar \href{https://docs.python.org/3.10/library/typing.html}{tipado} para las variables y funciones en Python.
+
+  \item Para cada problema cuya solución se deba entregar como un documento (en este caso las preguntas 2, 3 y 4), usted deberá entregar un archivo \texttt{.pdf} que, o bien fue construido utilizando \LaTeX, o bien es el resultado de digitalizar un documento escrito a mano. En caso de optar por esta última opción, queda bajo su responsabilidad la legibilidad del documento. Respuestas que no puedan interpretar de forma razonable los ayudantes y profesores, ya sea por la caligrafía o la calidad de la digitalización, serán evaluadas con la nota mínima.
+
+\end{itemize}
