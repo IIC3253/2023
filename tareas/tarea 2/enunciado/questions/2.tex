@@ -1,0 +1,57 @@
+%!TEX root = ../main/main.tex
+
+En esta pregunta deberá escribir un programa que verifique la autenticidad de un Json Web Token (JWT) en sus variantes HS256 y RS256. Para esto, deberá escribir un Jupyter notebook siguiendo las instrucciones explicadas arriba que al menos defina la siguiente función:
+
+\begin{python}
+def validate_jwt(jwt: str, key: str) -> bool:
+    """
+    Arguments:
+      jwt: a well-formed Json Web Token
+      key: the key to verify the validity of the jwt
+    Returns:
+      valid: is the jwt is valid w.r.t the provided key?
+    """
+\end{python}
+Su notebook podrá definir funciones auxiliares que ayuden a simplificar la lectura. Deberá estar explicado y ser fácil de seguir para una persona que entiende los contenidos del curso.
+
+\textbf{Importante}: Su notebook sólo podrá importar las siguientes librerías externas
+\begin{python}
+from hashlib import sha256
+from base64 import urlsafe_b64decode, urlsafe_b64encode
+\end{python}
+
+
+Para validar un JWT que usa HS256, el parámetro \texttt{key} es un string que representa la llave a usar en HMAC-SHA256. Por ejemplo el siguiente JWT es válido con la llave \texttt{IIC3253}.
+
+\begin{tabular}{l}
+  \texttt{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFzcyI6IkNyaXB0b2dy}\\
+  \texttt{YWbDrWEgeSBTZWd1cmlkYWQgQ29tcHV0YWNpb25hbCIsInVuaXZlcnNpdHkiO}\\
+  \texttt{iJQVUMgQ2hpbGUifQ.Cn1AACqINaUTbAJuh\_V4lBcr9X4dRp8FUX9sGDkX-Ss}
+\end{tabular}
+
+Para un JWT que usa RS256, el parámetro \texttt{key} es una llave pública RSA en formato \texttt{PKCS\#8} para validar la firma RSA contenida en el JWT. Por ejemplo el JWT
+
+\begin{verbatim}
+  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ3JpcHRvZ3JhZsOt
+  YSB5IFNlZ3VyaWRhZCBDb21wdXRhY2lvbmFsIiwiY291cnNlIjoiSUlDMzI1MyIsI
+  nVuaXZlcnNpdHkiOiJQVUMgQ2hpbGUifQ.CmoMizX-_E2Ugd7-JDThCfrXTJbg38W
+  Lal3HipmnA8oAUh1yG9IU1n_klJkmPIT3knxrmrJMXxh6gTCOylLQfKSQI7pHsYUr
+  -yOd5gL7XpnT3stvOtYDO383cBnrL5X8EV01lUxJJenYG5Qr4uVG7Msg-4fUJbTqT
+  R2t0Jx2UQ2pfi_jxgfg6lAjSLK9TygntJJ-eJV0Q8IipVYnqtCxBS-OIXekalyjpB
+  Hksf_ibiJtPrMJI3Kvyj3dwrETth8c4yg2IIh22uoJHrJArNk3xPfeSsasZT0ixfM
+  E8Mlnkd4HwpbcNZZl-FpsBPbPWHKynZXptq8uS65PxKmTggg8kA
+\end{verbatim}
+
+es válido con la llave pública
+
+\begin{verbatim}
+  -----BEGIN PUBLIC KEY-----
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu1SU1LfVLPHCozMxH2Mo
+  4lgOEePzNm0tRgeLezV6ffAt0gunVTLw7onLRnrq0/IzW7yWR7QkrmBL7jTKEn5u
+  +qKhbwKfBstIs+bMY2Zkp18gnTxKLxoS2tFczGkPLPgizskuemMghRniWaoLcyeh
+  kd3qqGElvW/VDL5AaWTg0nLVkjRo9z+40RQzuVaE8AkAFmxZzow3x+VJYKdjykkJ
+  0iT9wCS0DRTXu269V264Vf/3jvredZiKRkgwlL9xNAwxXFg0x/XFw005UWVRIkdg
+  cKWTjpBP2dPwVZ4WWC+9aGVd+Gyn1o0CLelf4rEjGoXbAAEgAqeGUxrcIlbjXfbc
+  mwIDAQAB
+  -----END PUBLIC KEY----- 
+\end{verbatim}
