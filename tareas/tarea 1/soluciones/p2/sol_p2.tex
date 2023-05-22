@@ -1,0 +1,124 @@
+\documentclass[11pt]{article}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{dirtree}
+\usepackage{fontawesome}
+\usepackage{tikz}
+
+
+\usetikzlibrary{trees}
+
+
+\newcommand{\comm}[1]{{\bf {\color{red} #1}}}
+\newcommand{\Enc}{\textit{Enc}}
+\newcommand{\Dec}{\textit{Dec}}
+\newcommand{\Gen}{\textit{Gen}}
+
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\K}{\mathcal{K}}
+
+\begin{document}
+
+\begin{center}
+  \bf Criptografía y Seguridad Computacional - IIC3253\\
+  \bf Tarea 1\\
+  \bf Solución pregunta 2
+\end{center}
+
+\bigskip
+
+\noindent
+Sea $\ell > 0$ un número entero, sea $\M$ el siguiente espacio de mensajes:
+\begin{eqnarray*}
+  \M &=& \{\varepsilon\} \cup \{0,1\} \cup \{0,1\}^2 \cup \{0,1\}^3 \cup \cdots \cup
+  \{0,1\}^{\ell},
+\end{eqnarray*}
+donde $\varepsilon$ es la palabra vacía, y sea $\K
+= \{0,1\}^{\ell+1}$. Defina un espacio de textos cifrados $\C$ que sea
+subconjunto de $\{0,1\}^*$, y un esquema criptográfico
+$(\Gen, \Enc, \Dec)$ sobre $\K$, $\M$ y $\C$ que sea perfectamente secreto.
+\\
+\\
+{\bf Nota:} En la definición de $(\Gen, \Enc, \Dec)$ debe
+suponer que $\Gen$ es la distribución uniforme sobre $\K$.
+
+\bigskip
+
+\noindent
+{\bf Solución.} Dado $m \in \M$, definimos una función $f : \M \to
+\{0,1\}^{\ell +1}$ de la siguiente forma. Para cada $m \in \M$, se
+tiene que
+\begin{eqnarray*}
+  f(m) &=& m10^{\ell - |m|}.
+\end{eqnarray*}
+Vale decir, $f(m)$ es construido agregando a $m$ un símbolo 1 seguido
+de $(\ell - |m|)$ símbolos 0. Nótese que $f$ es una función
+inyectiva. Formalmente, dados $m_1, m_2 \in \M$ tales que $m_1 \neq
+m_2$, tenemos que $f(m_1) \neq f(m_2)$ por los siguientes casos.
+\begin{itemize}
+\item Si $|m_1| = |m_2| = k$, entonces $f(m_1)$ difiere de $f(m_2)$ en
+  alguno de los primeros $k$ símbolos, puesto que $m_1$ es prefijo de
+  $f(m_1)$ y $m_2$ es prefijo de $f(m_2)$.
+
+\item Si $|m_1| < |m_2|$, entonces $f(m_1)$ defiere de $f(m_2)$ ya que
+  $f(m_2)$ tiene un símbolo 1 en la posición $|m_2| + 1$, mientras que
+  $f(m_1)$ tiene un símbolo 0 en la posición $|m_2|+1$.
+  
+\item Si $|m_2| < |m_1|$, entonces se concluye que $f(m_1)$ defiere de
+  $f(m_2)$ como en el caso anterior.
+\end{itemize}
+Como $f$ es una función inyectiva, denotamos como $f^{-1}$ a su inversa.
+
+Sea $\C = \{ f(m) \mid m \in \M\}$, y defina las familias $\Enc$ y
+$\Dec$ de la siguiente forma. Dado $k \in \K$, se tiene que:
+\begin{itemize}
+  \item para cada $m \in \M$: $\Enc_k(m) = f(m) \oplus k$, y 
+  \item para cada $c \in \C$: $\Dec_k(m) = f^{-1}(c \oplus k)$.
+\end{itemize}
+Nótese que para cada $k \in \K$ y $m \in \M$:
+\begin{eqnarray*}
+  \Dec_k(\Enc_k(m)) &=& \Dec_k(f(m) \oplus k)\\
+  &=& f^{-1}((f(m) \oplus k) \oplus k)\\
+  &=& f^{-1}(f(m) \oplus (k \oplus k))\\
+  &=& f^{-1}(f(m) \oplus 0^{\ell + 1})\\
+  &=& f^{-1}(f(m))\\
+  &=& m
+\end{eqnarray*}
+Por lo tanto el esquema criptográfico $(\Gen, \Enc, \Dec)$ está bien
+definido, y para terminar la pregunta sólo tenemos que demostrar que
+es perfectamente secreto. Vale decir, tenemos que demostrar que se
+cumple la siguiente propiedad, dada una distribución de probabilidades
+$\mathbb{D}$ para los mensajes en~$\M$:
+$$
+\forall m_0\in\mathcal{M}:\underset{
+	\begin{array}{cc}
+    	m\sim\mathbb{D}\\
+    	k\sim\textit{Gen}
+    \end{array}
+}
+{\Pr}[m=m_0\ |\ \textit{Enc}_k(m)=c_0]\quad = \quad 
+\underset{m\sim \mathbb{D}}
+{\Pr}[m=m_0].
+$$
+La demostración de que esta propiedad se cumple se puede hacer de
+la misma forma que como se hizo en clases para el caso de OTP. En particular, se debe
+considerar que $\Gen$ es la distribución uniforme sobre $\K$, y para
+todo $m \in \M$ y $c \in \C$ existe un único $k$ tal que $\Enc_k(m) =
+c$, por lo que se tiene que:
+\begin{eqnarray*}
+  \sum_{k\in\mathcal{K}\,:\,\Enc_k(m)=c} \Gen(k) &=& \frac{1}{2^{\ell+1}}.
+\end{eqnarray*}
+
+
+  
+\end{document}

@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{dirtree}
+\usepackage{fontawesome}
+\usepackage{tikz}
+
+
+\usetikzlibrary{trees}
+
+
+\newcommand{\comm}[1]{{\bf {\color{red} #1}}}
+\newcommand{\Enc}{\textit{Enc}}
+\newcommand{\Dec}{\textit{Dec}}
+\newcommand{\Gen}{\textit{Gen}}
+
+
+\begin{document}
+
+\begin{center}
+  \bf Criptografía y Seguridad Computacional - IIC3253\\
+  \bf Tarea 1\\
+  \bf Solución pregunta 4
+\end{center}
+
+
+\bigskip
+
+\noindent
+En ayudantía fue demostrado que si una función de hash es resistente a
+colisiones, entonces esta función debe ser resistente a preimagen. En
+esta pregunta usted debe demostrar que la implicación inversa no es
+cierta. Vale decir, suponiendo que existe una función de hash que es
+resistente a preimagen, demuestre que existe una función de hash
+$(\Gen, h)$ que es resistente a preimagen y no es resistente
+a colisiones.
+
+
+\bigskip
+
+\noindent
+{\bf Solución.}  Suponga que $(\Gen, h')$ es una función de hash
+resistente a preimagen. En particular, para cada $n \geq 0$, si
+$\Gen(1^n) = s$, entonces $(h')^s : \{0,1\}^* \to \{0,1\}^{\ell(n)}$
+donde $\ell(n)$ es un polinomio fijo. A partir de esta función,
+definimos una función de hash $(\Gen, h)$ de la siguiente
+forma. Suponiendo que $n \geq 0$ y $\Gen(1^n) = s$, para cada $m \in
+\{0,1\}^*$ se tiene que:
+\begin{eqnarray*}
+h^s(m) &=&
+\begin{cases}
+  (h')^s(\varepsilon) & \text{si } m = \varepsilon\\
+  (h')^s(u) & \text{si } m = uv \text{ con } |v| = 1
+\end{cases}
+\end{eqnarray*}
+Vamos a demostrar que $(\Gen, h)$ es resistente a preimagen y no es
+resistente a colisiones.
+
+Suponga primero que $(\Gen, h)$ no es resistente a preimagen, de lo
+cual esperamos llegar a una contradicción.  Dado que $(\Gen, h)$ no es
+resistente a preimagen, existe un algoritmo aleatorizado ${\cal A}$ de
+tiempo polinomial que gana el siguiente juego con una probabilidad no
+despreciable. Dado $n \geq 0$, se ejecutan los siguientes pasos:
+\begin{enumerate}
+\item El verificador genera $s = \Gen(1^n)$ y un hash
+  $x \in \{0,1\}^{\ell(n)}$
+\item El adversario elige $m \in \{0,1\}^*$ o $m = \bot$
+\item El adversario gana el juego si alguna de las siguientes condiciones se cumple:
+\begin{itemize}
+\item $m \in \{0,1\}^{*}$ y $h^s(m) = x$ 
+\item $m = \bot$ y  no existe $m' \in \{0,1\}^*$ tal que $h^s(m') = x$
+\end{itemize}
+En caso contrario, el adversario pierde.
+\end{enumerate}
+A partir del algoritmo ${\cal A}$, definimos un algoritmo aleatorizado
+${\cal A}'$ de la siguiente forma. Dado $n \geq 0$ y $x \in
+\{0,1\}^{\ell(n)}$, el algoritmo ${\cal A}'$ se pone en el papel del
+verificador en el juego anterior, y le pide a ${\cal A}$ una preimagen
+para $x$. Si ${\cal A}$ responde con $m = \bot$ o $m = \varepsilon$,
+entonces ${\cal A}'$ responde con el mismo string $m$ como una
+preimagen para $x$ bajo la función $(\Gen, h')$. Si ${\cal A}$
+responde con $m = uv$ con $m \in \{0,1\}^*$ y $|v| = 1$, entonces
+entonces ${\cal A}'$ responde con $u$ como una preimagen para $x$ bajo
+la función $(\Gen, h')$. Tenemos que ${\cal A'}$ es un algoritmo
+aleatorizado de tiempo polinomial ya que ${\cal A}$ es un algoritmo
+aleatorizado de tiempo polinomial. Además, ${\cal A}'$ genera una
+preimagen de $x$ con la misma probabilidad que ${\cal A}$, puesto que
+por definición de $h$ tenemos que:
+\begin{itemize}
+\item si $m = \bot$ y no existe $m'$ tal que $h^s(m') = x$, entonces
+  no existe $m'$ tal que $(h')^s(m') = x$;
+
+\item si $m = \varepsilon$ y $h^s(m) = x$, entonces $(h')^s(\varepsilon) =
+  h^s(\varepsilon) = x$; y
+
+\item si $m = uv$, con $m \in \{0,1\}^*$ y $|v| = 1$, y $h^s(m) = x$,
+  entonces $(h')^s(u) = h^s(uv) = x$.
+\end{itemize}
+La existencia del algoritmo ${\cal A}'$ nos muestra que la
+función de hash $(\Gen, h')$ no es resistente a preimagen, lo cual
+contradice nuestro supuesto inicial.
+
+Para demostrar que $(\Gen, h)$ no es resistente a colisiones, nos
+basta considerar que si $n \geq 0$ y $\Gen(1^n) = s$, entonces $h^s(0)
+= h^s(1) = (h')^s(\varepsilon)$. Esto concluye el ejercicio.
+\end{document}
