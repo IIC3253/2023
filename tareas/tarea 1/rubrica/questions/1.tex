@@ -1,0 +1,19 @@
+%!TEX root = ../main/main.tex
+
+En esta pregunta usted deberá obtener una llave utilizada para encriptar mensajes con una variante de OTP bastante mala. Deberá entregar un archivo \texttt{Pregunta\_1/key.bin} que contenga la llave que se utilizó para encriptar dichos mensajes, además de un notebook que explique el proceso que se siguió para obtener la llave.
+
+Los mensajes que debe decriptar serán subidos a su repositorio privado a lo más 24 horas después de su creación (ver Configuración Inicial más arriba).
+
+\medskip
+
+\paragraph{Corrección.}
+El puntaje de esta pregunta se calcula como $6\cdot r\cdot (0.7 + 0.3\cdot d)$, donde $r$ (ratio) es la proporción de caracteres correctos de la llave y $d$ (desarrollo) se calcula de acuerdo a los puntajes que se muestran más abajo. Por ejemplo, si se consigue 48 de los 64 bytes de la llave y $d$ es $0.5$, entonces el puntaje de esta pregunta será  $6\cdot 48/64 \cdot (0.7 + 0.3\cdot 0.5) = 3.825$. Se considerará que la llave tiene 64 bytes aunque en realidad era dos veces una llave de 32 bytes. Si alguien simplemente respondió con 32 bytes, se considerará la proporción de bytes correctos en dicha llave.
+
+Cálculo del valor $d$:
+\begin{itemize}
+  \item{[0]} Entrega un notebook vació o que no aporta información concreta respecto de cómo se obtuvo la llave.
+  \item{[0.5]} Entrega un notebook que explica ciertos pasos para conseguir la llave, pero ciertas partes de la llave cuya obtención no es obvia, aparecen sin una explicación.
+  \item{[1]} El notebook describe de forma concreta cómo se obtuvieron los caracteres de la llave entregada.
+\end{itemize}
+
+\medskip

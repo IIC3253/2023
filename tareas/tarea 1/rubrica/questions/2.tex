@@ -1,0 +1,49 @@
+%!TEX root = ../main/main.tex
+
+Sea $\ell > 0$ un número entero, sea $\M$ el siguiente espacio de mensajes:
+\begin{eqnarray*}
+  \M &=& \{\varepsilon\} \cup \{0,1\} \cup \{0,1\}^2 \cup \{0,1\}^3 \cup \cdots \cup
+  \{0,1\}^{\ell},
+\end{eqnarray*}
+donde $\varepsilon$ es la palabra vacía, y sea $\K
+= \{0,1\}^{\ell+1}$. Defina un espacio de textos cifrados $\C$ que sea
+subconjunto de $\{0,1\}^*$, y un esquema criptográfico
+$(\Gen, \Enc, \Dec)$ sobre $\K$, $\M$ y $\C$ que sea perfectamente secreto.
+\\
+\\
+{\bf Nota:} En la definición de $(\Gen, \Enc, \Dec)$ debe
+suponer que $\Gen$ es la distribución uniforme sobre $\K$.
+
+
+\medskip
+
+\paragraph{Corrección.}
+Esta pregunta se corrige considerando que se debe diseñar un esquema
+criptográfico $(\Gen, \Enc, \Dec)$ que sea perfectamente secreto. La
+asignación de puntaje en esta pregunta es la siguiente.
+\begin{itemize}
+    \item{[1.5 puntos]} Sólo se entrega la definición del esquema
+esquema criptográfico $(\Gen, \Enc$, $\Dec)$, la cual incluye las
+definiciones del espacio de mensajes cifrado $\C$ y las familias de
+funciones $\Enc$ y $\Dec$, y no está completamente correcta.
+
+    \item{[3 puntos]} Se entrega una definición correcta del esquema
+esquema criptográfico $(\Gen$, $\Enc$, $\Dec)$, la cual incluye las
+definiciones del espacio de mensajes cifrado $\C$ y las familias de
+funciones $\Enc$ y $\Dec$.
+
+    \item{[4.5 puntos]} Se entrega una definición correcta del esquema
+criptográfico $(\Gen$, $\Enc$, $\Dec)$, la cual incluye las definiciones
+del espacio de mensajes cifrado $\C$ y las familias de funciones
+$\Enc$ y $\Dec$, y se demuestra formalmente que este esquema es correcto
+(en el sentido que $\Dec_k(\Enc_k(m)) = m$).
+
+    \item{[6 puntos]} Se entrega una definición correcta del esquema
+criptográfico $(\Gen$, $\Enc$, $\Dec)$, la cual incluye las definiciones
+del espacio de mensajes cifrado $\C$ y las familias de funciones
+$\Enc$ y $\Dec$, se demuestra formalmente que este esquema es correcto
+(en el sentido que $\Dec_k(\Enc_k(m)) = m$), y se demuestra
+formalmente que este esquema es perfectamente secreto.
+\end{itemize}
+
+\medskip
