@@ -29,7 +29,7 @@ Para validar un JWT que usa HS256, el parámetro \texttt{key} es un string que r
   \texttt{iJQVUMgQ2hpbGUifQ.Cn1AACqINaUTbAJuh\_V4lBcr9X4dRp8FUX9sGDkX-Ss}
 \end{tabular}
 
-Para un JWT que usa RS256, el parámetro \texttt{key} es una llave pública RSA en formato \texttt{PKCS\#8} para validar la firma RSA contenida en el JWT. Por ejemplo el JWT
+Para un JWT que usa RS256, el parámetro \texttt{key} es una llave pública RSA en formato \href{https://www.rfc-editor.org/rfc/rfc8017}{\texttt{PKCS\#1}} para validar la firma RSA contenida en el JWT. Por ejemplo el JWT
 
 \begin{verbatim}
   eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ3JpcHRvZ3JhZsOt
