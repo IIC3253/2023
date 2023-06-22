@@ -1,0 +1,210 @@
+\documentclass[11pt]{article}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{dirtree}
+\usepackage{fontawesome}
+\usepackage{tikz}
+
+
+\usetikzlibrary{trees}
+
+
+\newcommand{\comm}[1]{{\bf {\color{red} #1}}}
+\newcommand{\Enc}{\textit{Enc}}
+\newcommand{\Dec}{\textit{Dec}}
+\newcommand{\Gen}{\textit{Gen}}
+
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\K}{\mathcal{K}}
+
+\newcommand{\MCD}{\textit{MCD}}
+
+\begin{document}
+
+\begin{center}
+  \bf Criptografía y Seguridad Computacional - IIC3253\\
+  \bf Tarea 2\\
+  \bf Solución pregunta 1
+\end{center}
+
+\bigskip
+
+\noindent
+
+\newcommand{\bbit}{\#\text{Bit}}
+\newcommand{\dv}{\text{Div}}
+
+En esta pregunta usted va a implementar y demostrar la corrección de un
+esquema criptográfico que utiliza claves más simples que las de RSA, y
+que además es aleatorizado, produciendo con una alta probabilidad cifrados distintos si un
+mensaje es encriptado más de una vez.
+
+Para definir este esquema, necesitamos introducir un poco de
+notación. Dado un número natural $n$, sea $\#\text{Bit}(n)$ el número
+de bits en la representación binaria de $n$. Además, dados dos números
+naturales $n$, $m$ tales que $m > 0$, sea
+  \begin{eqnarray*}
+\dv(n,m) &=& \bigg\lfloor \frac{n-1}{m} \bigg\rfloor.
+  \end{eqnarray*}
+Entonces, la clave pública $P_A$ y la clave
+secreta $S_A$ de un usuario $A$ son generadas de la siguiente forma.
+\begin{enumerate}
+\item[(a)] Genere dos números primos distintos $P$ y $Q$ tales que $P \geq
+  3$, $Q \geq 3$ y $\bbit(P) = \bbit(Q)$.  Sea $N = P \cdot Q$ y
+  $\phi(N) = (P-1) \cdot (Q-1)$.
+
+\item[(b)] Defina $P_A = N$ y $S_A = \phi(N)$.
+\end{enumerate}
+La función de cifrado $\Enc_{P_A}$ es definida de la siguiente
+forma. Dado un mensaje $m \in \{0, \ldots, N-1\}$, se genera al azar un número $r
+\in \{1, \ldots, N-1\}$ tal que $\MCD(r, N) = 1$, y se construye
+  \begin{eqnarray*}
+    \Enc_{P_A}(m) &=& ((N+1)^m \cdot r^N) \!\! \mod N^2
+  \end{eqnarray*}
+La función de descifrado $\Dec_{S_A}$ es definida de la siguiente
+forma. Sea $B \in \{0, \ldots, N-1\}$ el inverso de $\phi(N)$ en módulo
+$N$, vale decir, $B$ satisface la condición
+\begin{eqnarray*}
+  \phi(N) \cdot B \equiv 1  \mod N
+\end{eqnarray*}
+Entonces dado un texto cifrado $c \in \{0, \ldots, N^2-1\}$, se define 
+  \begin{eqnarray*}
+    \Dec_{S_A}(c) &=&   \big[\dv(c^{\phi(N)} \!\!\!\mod N^2,\, N)  \cdot B \big] \!\!\mod N
+  \end{eqnarray*}
+  Responda las siguientes preguntas, en las cuales va a implementar el esquema criptográfico y va a demostrar que es correcto.
+    \begin{enumerate}
+\item[(a)] Implemente el esquema criptográfico definido en esta pregunta
+  completando el Jupyter notebook
+  \href{https://github.com/IIC3253/2023/blob/main/tareas/tarea\%202/enunciado/questions/p1/pregunta1_a.ipynb}{\texttt{pregunta1\_a.ipynb}}. Para
+  que su pregunta sea considerada correcta, su notebook deberá correr
+  de principio a fin habiendo completado los métodos marcadas con
+  \texttt{\#\#\#\#\# POR COMPLETAR}. Las entradas y salidas de estos
+  métodos no pueden ser modificadas, pero sí puede agregar métodos
+  adicionales si los considera necesarios. Se
+  evaluará con un programa externo la implementación de sus clases
+  \texttt{Receiver} y \texttt{Sender}.
+  
+  \item[(b)] Demuestre que $\MCD(N, \phi(N)) = 1$. Nótese que de esto
+    se deduce la existencia del número $B$, que es el inverso
+    de $\phi(N)$ en módulo $N$.
+
+\item[(c)] Dado     $m \in \{0, \ldots, N-1\}$, demuestre que:
+  \begin{eqnarray*}
+    \Dec_{S_A}(\Enc_{P_A}(m)) &=& m
+  \end{eqnarray*}
+  \end{enumerate}
+
+\bigskip
+
+\noindent
+{\bf Solución.}
+\begin{enumerate}
+\item[(a)] La solución de esta pregunta está en el Jupyter notebook
+  \href{https://github.com/IIC3253/2023/blob/main/tareas/tarea\%202/enunciado/questions/p1/pregunta1_a.ipynb}{\texttt{sol\_p1\_a.ipynb}}.
+
+
+\item[(b)] Sean $P$ y $Q$ dos números primos distintos tales que $P
+  \geq 3$, $Q \geq 3$ y $\bbit(P) = \bbit(Q)$, y defina $N = P \cdot Q$
+  y $\phi(N) = (P-1) \cdot (Q-1)$. Con el fin de obtener una
+  contradicción, suponga que $\MCD(N, \phi(N)) > 1$.
+
+  Sin perdida de generalidad suponga que $P > Q$. Entonces se tiene
+  que $P$ no divide a $Q-1$, y por lo tanto no puede dividir a
+  $\phi(N) = (P-1) \cdot (Q-1)$. Dado que $\MCD(N, \phi(N)) > 1$, se
+  debe tener entonces que $Q$ divide a $P-1$. Como $P \geq 3$, se
+  tiene que $P-1$ es un número par, vale decir, $P-1 = 2 \cdot
+  R$. Como $Q$ es un número primo mayor o igual a $3$ y $Q$ divide a
+  $2 \cdot R$, se debe tener que $Q$ divide a $R$. De esto se deduce
+  que $\bbit(Q) \leq \bbit(R)$. Pero $\bbit(R) = \bbit(P-1) - 1$,
+  puesto que $P-1 = 2 \cdot R$, de lo cual se concluye que $\bbit(Q)
+  \leq \bbit(R) = \bbit(P-1) - 1 \leq \bbit(P) - 1 < \bbit(P)$. De
+  esto se obtiene una contradicción con el supuesto inicial de que
+  $\bbit(P) = \bbit(Q)$.
+
+  Observe que es necesario suponer la condición $\bbit(P) = \bbit(Q)$ para
+  obtener la propiedad $\MCD(N, \phi(N)) = 1$. Por ejemplo, si $P = 11$ y $Q =
+  5$, entonces se tiene que $N = 55$, $\phi(N) = 40$ y $\MCD(55, 40) =
+  5$. Pero en este caso se tiene que $\bbit(P) \neq \bbit(Q)$ puesto que
+  $\bbit(P) = 4$ y $\bbit(Q) = 3$.
+
+\item[(c)] Sea $m \in \{0, \ldots, N-1\}$, $r \in \{1, \ldots, N-1\}$ tal que $\MCD(r, N) = 1$, y
+  \begin{eqnarray*}
+    c &=& ((N+1)^m \cdot r^N) \!\! \mod N^2.
+  \end{eqnarray*}
+  Para demostrar que el protocolo es correcto, tenemos que demostrar que
+  \begin{eqnarray*}
+    m &=&   \big[\dv(c^{\phi(N)} \!\!\!\mod N^2,\, N)  \cdot B \big] \!\!\mod N
+  \end{eqnarray*}
+  Para esto, primero consideramos la expresión $c^{\phi(N)} \!\!\!\mod
+  N^2$. Dada la definición de $c$, tenemos que
+  \begin{eqnarray}\notag
+c^{\phi(N)} \!\! \mod N^2 &=& \big(((N+1)^m \cdot r^N) \!\! \mod
+  N^2\big)^{\phi(N)} \!\! \mod N^2\\
+\notag &=& \big((N+1)^m \cdot r^N\big)^{\phi(N)} \!\! \mod N^2\\
+\notag &=& \big((N+1)^{m \cdot \phi(N)} \cdot r^{N \cdot \phi(N)}\big) \!\! \mod N^2\\
+\label{eq-tp-2} &=& \big((N+1)^{m \cdot \phi(N)} \cdot (r^{N \cdot \phi(N)} \!\! \mod N^2)\big) \!\! \mod N^2
+  \end{eqnarray}
+  Dado que %$r \in \{1, \ldots, N-1\}$ y
+  $\MCD(r,N) = 1$, se tiene que
+$\MCD(r,N^2) = 1$. Como vimos en clases, de esto se concluye que
+$r^{\phi(N^2)} \!\! \mod N^2 = 1$. Pero $N = P \cdot Q$ donde $P$ y
+$Q$ son dos primos distintos, por lo que $\phi(N^2) = N \cdot
+\phi(N)$, y se deduce que
+\begin{eqnarray}\label{eq-pr-1}
+  r^{N \cdot \phi(N)} \!\! \mod N^2 &=& 1
+\end{eqnarray}
+Por otro lado, por el teorema del binomio tenemos que
+\begin{eqnarray*}
+  (N+1)^{m \cdot \phi(N)} &=& \sum_{i=0}^{m \cdot \phi(N)} \binom{m \cdot \phi(N)}{i} N^i\\
+  &=& 1 + m \cdot \phi(N) \cdot N + \alpha \cdot N^2,
+\end{eqnarray*}
+donde $\alpha$ es un número natural. Tenemos entonces que 
+\begin{eqnarray*}
+  (N+1)^{m \cdot \phi(N)} \!\! \mod N^2 &=& (1 + m \cdot \phi(N) \cdot N) \!\! \mod N^2.
+\end{eqnarray*}
+Pero además sabemos que
+\begin{eqnarray*}
+  1 + m \cdot \phi(N) \cdot N &=& \beta \cdot N^2 \ + \ (1 + m \cdot \phi(N) \cdot N) \!\! \mod N^2,
+\end{eqnarray*}
+donde $\beta$ es también un número natural. Concluimos entonces que
+\begin{eqnarray}
+  \notag
+  (N+1)^{m \cdot \phi(N)} \!\! \mod N^2 &=& (1 + m \cdot \phi(N) \cdot N) \!\! \mod N^2\\
+\label{eq-pr-2}
+  &=&  1 + m \cdot \phi(N) \cdot N - \beta \cdot N^2.
+\end{eqnarray}
+Combinando \eqref{eq-tp-2}, \eqref{eq-pr-1} y \eqref{eq-pr-2}, obtenemos que
+  \begin{eqnarray*}
+    c^{\phi(N)} \!\! \mod N^2 &=& \big((N+1)^{m \cdot \phi(N)} \cdot (r^{N \cdot \phi(N)} \!\! \mod N^2)\big) \!\! \mod N^2\\
+    &=& (N+1)^{m \cdot \phi(N)} \!\! \mod N^2\\
+    &=& 1 + m \cdot \phi(N) \cdot N - \beta \cdot N^2.
+  \end{eqnarray*}
+Finalmente, de esto concluimos que el protocolo es correcto puesto que
+  \begin{eqnarray*}
+    \big[\dv(c^{\phi(N)} \!\!\!\mod N^2,\, N)  \cdot B \big] \!\!\mod N &=&
+    \big[\dv(1 + m \cdot \phi(N) \cdot N - \beta \cdot N^2,\, N)  \cdot B \big] \!\!\mod N\\
+    &=& \big[\bigg\lfloor \frac{1 + m \cdot \phi(N) \cdot N - \beta \cdot N^2 -1}{N} \bigg\rfloor \cdot B\big] \!\!\mod N\\
+    &=& \big[(m \cdot \phi(N) - \beta \cdot N) \cdot B\big] \!\!\mod N\\
+    &=& \big[m \cdot \phi(N) \cdot B\big] \!\!\mod N\\
+    &=& m \!\!\mod N\\
+    &=& m
+  \end{eqnarray*}
+  Nótese que para obtener las dos últimas igualdades consideramos que $\phi(N) \cdot B \equiv 1  \mod N$ y $m \in \{0, \ldots, N-1\}$.
+
+  
+
+\end{enumerate}
+
+
+  
+\end{document}
