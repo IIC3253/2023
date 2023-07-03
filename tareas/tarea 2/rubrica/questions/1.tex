@@ -1,0 +1,103 @@
+%!TEX root = ../main/main.tex
+
+En esta pregunta usted va a implementar y demostrar la corrección de un
+esquema criptográfico que utiliza claves más simples que las de RSA, y
+que además es aleatorizado, produciendo con una alta probabilidad cifrados distintos si un
+mensaje es encriptado más de una vez.
+
+Para definir este esquema, necesitamos introducir un poco de
+notación. Dado un número natural $n$, sea $\#\text{Bit}(n)$ el número
+de bits en la representación binaria de $n$. Además, dados dos números
+naturales $n$, $m$ tales que $m > 0$, sea
+  \begin{eqnarray*}
+\dv(n,m) &=& \bigg\lfloor \frac{n-1}{m} \bigg\rfloor.
+  \end{eqnarray*}
+Entonces, la clave pública $P_A$ y la clave
+secreta $S_A$ de un usuario $A$ son generadas de la siguiente forma.
+\begin{enumerate}
+\item[(a)] Genere dos números primos distintos $P$ y $Q$ tales que $P \geq
+  3$, $Q \geq 3$ y $\bbit(P) = \bbit(Q)$.  Sea $N = P \cdot Q$ y
+  $\phi(N) = (P-1) \cdot (Q-1)$.
+
+\item[(b)] Defina $P_A = N$ y $S_A = \phi(N)$.
+\end{enumerate}
+La función de cifrado $\Enc_{P_A}$ es definida de la siguiente
+forma. Dado un mensaje $m \in \{0, \ldots, N-1\}$, se genera al azar un número $r
+\in \{1, \ldots, N-1\}$ tal que $\MCD(r, N) = 1$, y se construye
+  \begin{eqnarray*}
+    \Enc_{P_A}(m) &=& ((N+1)^m \cdot r^N) \!\! \mod N^2
+  \end{eqnarray*}
+La función de descifrado $\Dec_{S_A}$ es definida de la siguiente
+forma. Sea $B \in \{0, \ldots, N-1\}$ el inverso de $\phi(N)$ en módulo
+$N$, vale decir, $B$ satisface la condición
+\begin{eqnarray*}
+  \phi(N) \cdot B \equiv 1  \mod N
+\end{eqnarray*}
+Entonces dado un texto cifrado $c \in \{0, \ldots, N^2-1\}$, se define 
+  \begin{eqnarray*}
+    \Dec_{S_A}(c) &=&   \big[\dv(c^{\phi(N)} \!\!\!\mod N^2,\, N)  \cdot B \big] \!\!\mod N
+  \end{eqnarray*}
+  Responda las siguientes preguntas, en las cuales va a implementar el esquema criptográfico y va a demostrar que es correcto.
+    \begin{enumerate}
+\item[(a)] Implemente el esquema criptográfico definido en esta pregunta
+  completando el Jupyter notebook
+  \href{https://github.com/IIC3253/2023/blob/main/tareas/tarea\%202/enunciado/questions/p1/pregunta1_a.ipynb}{\texttt{pregunta1\_a.ipynb}}. Para
+  que su pregunta sea considerada correcta, su notebook deberá correr
+  de principio a fin habiendo completado los métodos marcadas con
+  \texttt{\#\#\#\#\# POR COMPLETAR}. Las entradas y salidas de estos
+  métodos no pueden ser modificadas, pero sí puede agregar métodos
+  adicionales si los considera necesarios. Se
+  evaluará con un programa externo la implementación de sus clases
+  \texttt{Receiver} y \texttt{Sender}.
+  
+  \item[(b)] Demuestre que $\MCD(N, \phi(N)) = 1$. Nótese que de esto
+    se deduce la existencia del número $B$, que es el inverso
+    de $\phi(N)$ en módulo $N$.
+
+\item[(c)] Dado     $m \in \{0, \ldots, N-1\}$, demuestre que:
+  \begin{eqnarray*}
+    \Dec_{S_A}(\Enc_{P_A}(m)) &=& m
+  \end{eqnarray*}
+  \end{enumerate}
+
+
+\medskip
+
+\paragraph{Corrección.}
+Está pregunta será evaluada de la siguiente forma.
+\begin{itemize}
+  \item[(a)] Se realizaran cuatros tests, cada uno de los cuales
+  incluye una llamada a la clase \texttt{Receiver} para crear una
+  clave pública con un cierto número de bits, una llamada a la
+  clase \texttt{Sender} para establecer como clave pública la generada
+  por \texttt{Receiver}, y dos llamadas para cifrar un mismo mensaje
+  y descifrarlo. Este tipo de tests es el mismo que se utilizó en el
+  Jupyter
+  notebook \href{https://github.com/IIC3253/2023/blob/main/tareas/tarea\%202/enunciado/questions/p1/pregunta1_a.ipynb}{\texttt{pregunta1\_a.ipynb}}
+  que usted debió completar. Por cada test que sea realizado
+  correctamente, usted recibirá 0.5 puntos.
+
+  \item[(b)] La asignación de puntaje en esta pregunta es la siguiente.
+\begin{itemize}
+    \item{[1 punto]} Tiene una idea correcta sobre cómo demostrar que
+    $\MCD(N, \phi(N)) = 1$, pero la formalización de la demostración
+    está incompleta o incorrecta.
+
+    \item{[2 puntos]} Tiene una idea correcta sobre cómo demostrar que
+    $\MCD(N, \phi(N)) = 1$, y esta idea está correctamente
+    formalizada.
+\end{itemize}
+
+  \item[(c)] La asignación de puntaje en esta pregunta es la siguiente.
+\begin{itemize}
+    \item{[1 punto]} Tiene una idea correcta sobre cómo demostrar que
+    $\Dec_{S_A}(\Enc_{P_A}(m)) = m$, pero la formalización de la
+    demostración está incompleta o incorrecta.
+
+   \item{[2 puntos]} Tiene una idea correcta sobre cómo demostrar que
+   $\Dec_{S_A}(\Enc_{P_A}(m)) = m$, y esta idea está correctamente
+   formalizada.
+\end{itemize}
+\end{itemize}
+
+\medskip
