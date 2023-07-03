@@ -1,0 +1,78 @@
+\documentclass[11pt]{article}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{dirtree}
+\usepackage{fontawesome}
+\usepackage{tikz}
+
+
+\usetikzlibrary{trees}
+
+
+\newcommand{\comm}[1]{{\bf {\color{red} #1}}}
+\newcommand{\Enc}{\textit{Enc}}
+\newcommand{\Dec}{\textit{Dec}}
+\newcommand{\Gen}{\textit{Gen}}
+
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\K}{\mathcal{K}}
+
+\newcommand{\MCD}{\textit{MCD}}
+
+\begin{document}
+
+\begin{center}
+  \bf Criptografía y Seguridad Computacional - IIC3253\\
+  \bf Tarea 3\\
+  \bf Solución pregunta 1
+\end{center}
+
+\bigskip
+
+\noindent
+
+\newcommand{\bbit}{\#\text{Bit}}
+\newcommand{\dv}{\text{Div}}
+
+El objetivo de esta pregunta es que usted implemente el protocolo
+criptográfico ElGamal y las firmas de Schnorr sobre grupos
+arbitrarios, y en particular que lo utilice sobre grupos generados por
+curvas elípticas. Para hacer esto, deberá completar el Jupyter
+notebook
+\href{https://github.com/IIC3253/2023/blob/main/tareas/tarea\%203/enunciado/questions/p1/pregunta1.ipynb}{\texttt{pregunta1.ipynb}},
+en el cual primero deberá implementar el protocolo ElGamal y las
+firmas de Schnorr sobre una representación general de grupos, para
+luego probar su implementación sobre los grupos $\mathbb{Z}_p^*$
+estudiados en clases, y finalmente probar su implementación sobre grupos
+generados por curvas elípticas como son definidos en el siguiente
+libro:
+\begin{itemize}
+  \item Jonathan Katz y Yehuda Lindell. {\em Introduction to Modern Cryptography}. Chapman and Hall/CRC, tercera edición, 2020.
+\end{itemize}
+Para que su pregunta sea considerada correcta, su notebook deberá
+correr de principio a fin habiendo modificado exclusivamente las
+clases y funciones marcadas con \texttt{\#\#\#\#\# POR COMPLETAR}. En
+particular, se evaluará con un programa externo la implementación de
+sus clases \texttt{SecretKeyHolder}, \texttt{PublicKeyHolder} y
+\texttt{EllipticCurve}.
+
+
+
+\bigskip
+
+\noindent
+    {\bf Solución.}
+    Una solución de la tarea está en el Jupyter Notebook
+  \href{https://github.com/IIC3253/2023/blob/main/tareas/tarea\%203/soluciones/questions/p1/sol_tests_p1.ipynb}{\texttt{sol\_tests\_p1.ipynb}}.
+  
+\end{document}
