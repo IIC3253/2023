@@ -1,0 +1,17 @@
+%!TEX root = ../main/main.tex
+
+Aún teniendo protocolos asimétricos tales como RSA y ElGamal, en la práctica utilizamos el protocolo de Diffie-Hellman para compartir llaves que son luego utilizadas en protocolos de criptografía simétrica tales como AES. ¿Cuál es la principal razón para hacer esto?
+
+
+% Un Message Authentication Code es una función para autentificar mensajes en base a una llave simétrica. Esta función toma una llave $k$ y un mensaje $m$ para generar un tag $t$. Intuitivamente, esperamos que una persona con la llave $k$ pueda verificar que el tag $t$ es válido para el mensaje $m$, y que alguien sin acceso a dicha llave no pueda autentificar mensajes que no se han autentificado antes. Para formalizar esta noción, en clases definimos un \emph{juego} que constaba de cinco pasos.
+% \begin{enumerate}
+%   \item El verificador genera una llave $k$ al azar.
+%   \item El adversario envía un mensaje $m$ al verificador.
+%   \item $\ldots$
+%   \item Los pasos 2 y 3 se repiten tantas veces como quiera el adversario.
+%   \item $\ldots$
+% \end{enumerate}
+% Escriba los dos pasos faltantes,
+% %%%%% cada uno en una línea. Luego,
+% %%%%% en no más de 3 líneas,
+% y luego explique cuándo decimos que el adversario gana el juego.

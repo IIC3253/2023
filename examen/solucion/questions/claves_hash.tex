@@ -1,0 +1,4 @@
+%!TEX root = ../main/main.tex
+En clases se discutió que no era buena idea guardar en una base de datos el hash de la contraseña de los usuarios. Suponiendo que usamos como función de hash SHA-256: ¿Sigue siendo esto cierto si suponemos que los usuarios generarán contraseñas aleatorias de 256 bits? Responda sí o no y justifique su respuesta.
+
+\paragraph{Respuesta:} No, si los usuarios generan contraseñas aleatorias de 256 bits y se utiliza SHA-256, que tiene como salida un string de 256 bits, entonces no es posible realizar un ataque basado en rainbow tables, ya que en este escenario para que el ataque sea efectivo se debe tener una rainbow table con $2^{256}$ filas (o un número cercano a esto).
